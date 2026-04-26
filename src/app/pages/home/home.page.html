@@ -1,10 +1,33 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>G00472900</ion-title>
+
     <ion-buttons slot="end">
       <ion-button shape="round" [routerLink]="['/favourites']">
         <ion-icon slot="icon-only" name="heart"></ion-icon>
       </ion-button>
     </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
+
+<ion-content [fullscreen]="true">
+<h2>
+  Today’s Trending Movies
+</h2>
+
+
+<ion-card *ngFor="let m of movieData">
+  <ion-card-header>
+      <ion-card-title>{{ m.title }}</ion-card-title>
+  </ion-card-header>
+
+  <img *ngIf="m.backdrop_path"
+  alt= {{ m.title }} [src]="imageLink + m.backdrop_path" />
+
+
+  <ion-card-content>
+    {{ m.overview }}
+  </ion-card-content>
+</ion-card>
+</ion-content>
