@@ -21,7 +21,7 @@ export class HomePage implements OnInit {
   imageLink = "https://image.tmdb.org/t/p/w500";
 
   options: HttpOptions = {
-    url: "https://api.themoviedb.org/3/trending/movie/day?api_key=9bb4565b7e9cf15a771e7e9917060b22"
+    url: ''
   }
 
   constructor(private tmdbService: Themoviedb) { 
@@ -37,6 +37,7 @@ export class HomePage implements OnInit {
   }
 
   async getTrending() {
+    this.options.url =   this.tmdbService.getTmdbUrl() + '/trending/movie/day?api_key=' + this.tmdbService.getApiKey();
     let result = await this.tmdbService.get(this.options);
     //for the developer tools check
     console.log(result);

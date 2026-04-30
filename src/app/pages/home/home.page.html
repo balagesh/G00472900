@@ -22,7 +22,9 @@
       <ion-card-title>{{ m.title }}</ion-card-title>
   </ion-card-header>
 
-  <img *ngIf="m.backdrop_path"
+  <!--excluding if backdrop_path is n-->
+  <img 
+  *ngIf="m.backdrop_path"
   alt= {{ m.title }} [src]="imageLink + m.backdrop_path" />
 
 
