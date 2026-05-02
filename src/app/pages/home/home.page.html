@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>G00472900</ion-title>
+    <ion-title></ion-title>
+    <ion-buttons slot="start">
+      <ion-button size="large">G00472900</ion-button>
+    </ion-buttons>
 
     <ion-buttons slot="end">
       <ion-button shape="round" [routerLink]="['/favourites']">
@@ -12,9 +15,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-<h2>
-  Today’s Trending Movies
-</h2>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title><h2>
+        Today’s Trending Movies
+      </h2></ion-card-title>
+  </ion-card-header>
+</ion-card>
 
 
 <ion-card *ngFor="let m of movieData">
@@ -26,13 +34,13 @@
       <ion-card-title>{{ m.title }}</ion-card-title>
   </ion-card-header>
 
+  <ion-card-content>
   <!--excluding if backdrop_path is n-->
   <img 
   *ngIf="m.backdrop_path"
   alt= "{{ m.title }}" [src]="imageLink + m.backdrop_path" />
-
-
-  <ion-card-content>
+  <br>
+  
     {{ m.overview }}
   </ion-card-content>
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonButton, IonButtons, IonCardHeader, IonCardContent, IonCardTitle, IonCard } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonButton, IonButtons, IonCardHeader, IonCardContent, IonCardTitle, IonCard, IonLabel, IonItem, IonSegmentButton, IonSegment } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { heart, home } from 'ionicons/icons';
@@ -12,7 +12,7 @@ import { HttpOptions } from '@capacitor/core';
   selector: 'app-movie-details',
   templateUrl: './movie-details.page.html',
   standalone: true,
-  imports: [IonCard, IonCardTitle, IonCardContent, IonCardHeader, IonButtons, IonButton, IonIcon, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink, IonContent]
+  imports: [IonSegment, IonSegmentButton, IonItem, IonLabel, IonCard, IonCardTitle, IonCardContent, IonCardHeader, IonButtons, IonButton, IonIcon, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink, IonContent]
 })
 export class MovieDetailsPage implements OnInit {
 

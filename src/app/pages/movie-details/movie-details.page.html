@@ -1,6 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>{{ movieData.title }}</ion-title>
+
+  <!-- with inner menu --> 
+    <ion-buttons slot="start">
+      <ion-button size="large" (click)="scroll(overview)">{{ movieData.title }}</ion-button>
+      <ion-button size="small" (click)="scroll(cast)">Cast</ion-button>
+      <ion-button size="small" (click)="scroll(crew)">Crew</ion-button>
+    </ion-buttons>
+
     <ion-buttons slot="end">
       <ion-button shape="round" [routerLink]="['/home']">
         <ion-icon slot="icon-only" name="home"></ion-icon>
@@ -10,63 +17,80 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+  
 </ion-header>
 
 <!--https://stackoverflow.com/questions/43945548/scroll-to-element-on-click-in-angular-4-->
 
-<ion-content [fullscreen]="true">  
-  <p style="margin-left:16px;">
-    <span (click)="scroll(overview)">Overview</span> |
-    <span (click)="scroll(cast)">Cast</span> |
-    <span (click)="scroll(crew)">Crew</span>
-  </p>
+<ion-content [fullscreen]="true"> 
 
-  <!--excluding if backdrop_path is n
+  <ion-item>
+    <div #overview style="height: 8px;"></div>
+  </ion-item>
+    
+  <ion-card>
+  <!--excluding if backdrop_pat
+  h is n
   <img *ngIf="movieData.backdrop_path"
     alt= "{{ movieData.title }}"
     [src]="imageLink + movieData.backdrop_path" />-->
   
+    <ion-item>
+      <h2>Overview</h2>
+    </ion-item>
+    <ion-item>
+      <div style="padding: 8px 12px;">
+        {{ movieData.overview }}
+      </div>
+    </ion-item>
+  </ion-card>
 
-  <h2 #overview>
-    Overview
-  </h2>
+  <ion-item>
+    <div #cast style="height: 8px;"></div>
+  </ion-item>
 
-  <ion-card-content>
-    {{ movieData.overview }}
-  </ion-card-content>
-
-  
-  <h2 #cast>
-    Cast
-  </h2>
-  
   <ion-card>
-  <ion-card-content *ngFor="let c of castData">
+    <ion-item>
+      <h1>Cast</h1>
+    </ion-item>
+
+  <ion-item *ngFor="let c of castData">
 
     <img *ngIf="c.profile_path"
-    [src]="imageLink + c.profile_path" />
+    [src]="imageLink + c.profile_path"
+    style="width:120px; margin-right:12px;" />
 
-    <p>{{ c.name }}</p>
-    <p>{{ c.character }}</p>
-  
-  </ion-card-content>
+    <ion-label>
+      <h1>{{ c.character }}</h1>
+      <p>{{ c.name }}</p>
+    </ion-label>
+
+  </ion-item>
   </ion-card>
-  <h2 #crew>Crew</h2>
+
+  <ion-item>
+    <div #crew></div>
+  </ion-item>
 
   <ion-card>
-  <ion-card-content>
-    <h2>Crew</h2>
-  </ion-card-content>
-  <ion-card-content *ngFor="let cr of crewData">
 
-    <img
-      *ngIf="cr.profile_path"
-      [src]="imageLink + cr.profile_path" />
+  <ion-item>
+    <h1>Crew</h1>
+  </ion-item>
 
-    <p>{{ cr.name }}</p>
-    <p>{{ cr.job }}</p>
+      <ion-item *ngFor="let cr of crewData">
+        
+        <img
+          *ngIf="cr.profile_path"
+          [src]="imageLink + cr.profile_path"
+          style="width:120px; margin-right:12px;" />
+    
+        <ion-label>
+          <h1>{{ cr.job }}</h1>
+          <p>{{ cr.name }}</p>
+        </ion-label>
 
-  </ion-card-content>
+      </ion-item>
 
   </ion-card>
   </ion-content>
