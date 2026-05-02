@@ -17,6 +17,8 @@ export class Themoviedb {
   private readonly apiKey = '9bb4565b7e9cf15a771e7e9917060b22';
   private readonly tmdbUrl = 'https://api.themoviedb.org/3';
 
+  mPicked: any;
+
   getApiKey(): string {
     return this.apiKey;
   }

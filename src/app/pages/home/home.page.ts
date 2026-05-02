@@ -45,4 +45,8 @@ export class HomePage implements OnInit {
     //Response body: object, results: array of objects
     this.movieData = result.data.results;
   }
+
+  moviePicker(thatMovie: any) {
+    this.tmdbService.mPicked = thatMovie;
+  } 
 }

@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Movie details TBD</ion-title>
+    <ion-title>{{ movieData.title }}</ion-title>
     <ion-buttons slot="end">
       <ion-button shape="round" [routerLink]="['/home']">
         <ion-icon slot="icon-only" name="home"></ion-icon>
@@ -11,3 +11,62 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+<!--https://stackoverflow.com/questions/43945548/scroll-to-element-on-click-in-angular-4-->
+
+<ion-content [fullscreen]="true">  
+  <p style="margin-left:16px;">
+    <span (click)="scroll(overview)">Overview</span> |
+    <span (click)="scroll(cast)">Cast</span> |
+    <span (click)="scroll(crew)">Crew</span>
+  </p>
+
+  <!--excluding if backdrop_path is n
+  <img *ngIf="movieData.backdrop_path"
+    alt= "{{ movieData.title }}"
+    [src]="imageLink + movieData.backdrop_path" />-->
+  
+
+  <h2 #overview>
+    Overview
+  </h2>
+
+  <ion-card-content>
+    {{ movieData.overview }}
+  </ion-card-content>
+
+  
+  <h2 #cast>
+    Cast
+  </h2>
+  
+  <ion-card>
+  <ion-card-content *ngFor="let c of castData">
+
+    <img *ngIf="c.profile_path"
+    [src]="imageLink + c.profile_path" />
+
+    <p>{{ c.name }}</p>
+    <p>{{ c.character }}</p>
+  
+  </ion-card-content>
+  </ion-card>
+  <h2 #crew>Crew</h2>
+
+  <ion-card>
+  <ion-card-content>
+    <h2>Crew</h2>
+  </ion-card-content>
+  <ion-card-content *ngFor="let cr of crewData">
+
+    <img
+      *ngIf="cr.profile_path"
+      [src]="imageLink + cr.profile_path" />
+
+    <p>{{ cr.name }}</p>
+    <p>{{ cr.job }}</p>
+
+  </ion-card-content>
+
+  </ion-card>
+  </ion-content>

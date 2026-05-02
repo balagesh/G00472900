@@ -11,6 +11,10 @@ export const routes: Routes = [
     path: 'home',
     loadComponent: () => import('./pages/home/home.page').then( m => m.HomePage)
   },
+
+  /*
+   source: https://stackoverflow.com/questions/36207023/angular2-how-to-use-router-with-dynamic-urls
+  */
   {
     path: 'movie-details',
     loadComponent: () => import('./pages/movie-details/movie-details.page').then( m => m.MovieDetailsPage)
