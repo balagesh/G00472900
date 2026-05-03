@@ -1,6 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Person details TBD</ion-title>
+    <ion-buttons slot="start">
+      <ion-button size="large">{{ pData.name }}</ion-button>
+
+    </ion-buttons>
+
     <ion-buttons slot="end">
       <ion-button shape="round" [routerLink]="['/home']">
         <ion-icon slot="icon-only" name="home"></ion-icon>
@@ -10,5 +14,71 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+  
 </ion-header>
 
+<!--https://stackoverflow.com/questions/43945548/scroll-to-element-on-click-in-angular-4-->
+
+<ion-content [fullscreen]="true"> 
+
+  <ion-item>
+    <div #overview style="height: 8px;"></div>
+  </ion-item>
+    
+  <ion-card>
+  <!--excluding if backdrop_path is null --> 
+  <ion-item>
+  <img *ngIf="pData.profile_path"
+    alt= "{{ pData.name }}"
+    [src]="imageLink + pData.profile_path"
+    style="width:123px; margin-right:11px;" />
+
+  <ion-label *ngIf="!pData.profile_path">
+    No image</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label *ngIf="pData.also_known_as">
+      {{ pData.also_known_as.join(', ') }}
+    </ion-label>  
+    <ion-label *ngIf="!pData.also_known_as">
+      -
+    </ion-label>
+  </ion-item>
+
+  <ion-item *ngIf="pData.birthday">
+
+    <ion-label>
+      <h2>{{ pData.birthday }} - {{ pData.deathday }}</h2>
+      <p>{{ pData.place_of_birth }}</p>
+      <br>
+      <p>{{ pData.biography }}</p>
+    </ion-label>
+  </ion-item>
+
+
+  <ion-item>
+    <h2>Movies</h2>
+  </ion-item>
+
+  <ion-item *ngFor="let pm of pMData"
+  button [routerLink]="['/movie-details', pm.id]">
+
+     <img *ngIf="pm.poster_path"
+       
+       [src]="imageLink + pm.poster_path"
+       style="width:123px; margin-right:11px;" />
+       
+     <ion-label *ngIf="!pm.poster_path">
+       No image</ion-label>
+   
+       <ion-label>
+        {{ pm.title || pm.name }}
+      </ion-label>
+  </ion-item>
+   
+     
+  </ion-card>
+
+
+</ion-content>

@@ -49,4 +49,5 @@ export class HomePage implements OnInit {
   moviePicker(thatMovie: any) {
     this.tmdbService.mPicked = thatMovie;
   } 
+  
 }

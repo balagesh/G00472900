@@ -60,4 +60,12 @@ export class MovieDetailsPage implements OnInit {
     this.crewData = result.data.crew;
   }
 
+  castPicker(thatCast: any) {
+    this.tmdbService.cPicked = thatCast;
+  }
+
+  crewPicker(thatCrew: any) {
+    this.tmdbService.cPicked = thatCrew;
+  }
+
 }

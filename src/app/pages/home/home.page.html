@@ -24,11 +24,10 @@
   </ion-card-header>
 </ion-card>
 
-
-<ion-card *ngFor="let m of movieData">
-
   <!-- clickable elements, select movie with method in ts file -->
-  <div (click)="moviePicker(m)" [routerLink]="['/movie-details']">
+  <!-- It was a div element, but I merged into the Ionic element later  -->
+<ion-card *ngFor="let m of movieData"
+button (click)="moviePicker(m)" [routerLink]="['/movie-details']">
 
   <ion-card-header>
       <ion-card-title>{{ m.title }}</ion-card-title>
@@ -44,6 +43,5 @@
     {{ m.overview }}
   </ion-card-content>
 
-</div>
 </ion-card>
 </ion-content>

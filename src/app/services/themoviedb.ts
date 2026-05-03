@@ -18,6 +18,8 @@ export class Themoviedb {
   private readonly tmdbUrl = 'https://api.themoviedb.org/3';
 
   mPicked: any;
+  cPicked: any;
+  crPicked: any;
 
   getApiKey(): string {
     return this.apiKey;
@@ -29,5 +31,5 @@ export class Themoviedb {
   
   async get(options: HttpOptions) {
     return await CapacitorHttp.get(options);
-}
+  }
 }
