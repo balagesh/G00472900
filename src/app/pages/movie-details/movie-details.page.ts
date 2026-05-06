@@ -7,6 +7,7 @@ import { addIcons } from 'ionicons';
 import { heart, home } from 'ionicons/icons';
 import { Themoviedb } from 'src/app/services/themoviedb';
 import { HttpOptions } from '@capacitor/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-movie-details',
@@ -27,45 +28,55 @@ export class MovieDetailsPage implements OnInit {
     url: ''
   }
 
-  constructor(private tmdbService: Themoviedb) { 
+  constructor(private tmdbService: Themoviedb, private route: ActivatedRoute) { 
     addIcons({ home });
     addIcons({ heart });
   }
 
   ngOnInit() {
-    this.movieData = this.tmdbService.mPicked;
     this.castData = [];
     this.crewData = [];
+
+    const id = this.route.snapshot.paramMap.get('id');
+    console.log('movie id:', id);
+
+    if (id) {
+      this.loadMovie(id);
+    }
   }
 
   ionViewWillEnter() {  
-    this.getMDetails();
   }
 
   scroll(el: HTMLElement) {
     el.scrollIntoView();
   }
 
-  async getMDetails() {
+  async loadMovie(id: string) {
 
-    let mId = this.movieData.id;
+    const movieUrl = this.tmdbService.getTmdbUrl() +'/movie/' + id + '?api_key=' + this.tmdbService.getApiKey();
+    // https://capacitorjs.com/docs/apis/http - get the key:value instead this.option
+    const movieResult = await this.tmdbService.get({ url: movieUrl });
+    this.movieData = movieResult.data;
 
-    this.options.url =   this.tmdbService.getTmdbUrl() + '/movie/' + mId + '/credits?api_key=' + this.tmdbService.getApiKey();
-    let result = await this.tmdbService.get(this.options);
-    //for the developer tools check
-    console.log(result);
-    //Extract movie list from result
-    //Response body: object, results: array of objects
-    this.castData = result.data.cast;
-    this.crewData = result.data.crew;
+    const creditsUrl =
+      this.tmdbService.getTmdbUrl() +
+      '/movie/' + id +
+      '/credits?api_key=' +
+      this.tmdbService.getApiKey();
+ 
+    const creditsResult = await this.tmdbService.get({ url: creditsUrl });
+    this.castData = creditsResult.data.cast;
+    this.crewData = creditsResult.data.crew;
   }
 
-  castPicker(thatCast: any) {
+/*   castPicker(thatCast: any) {
     this.tmdbService.cPicked = thatCast;
   }
 
   crewPicker(thatCrew: any) {
     this.tmdbService.cPicked = thatCrew;
   }
+ */
 
 }

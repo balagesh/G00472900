@@ -1,13 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
 
-  <!-- with inner menu --> 
-    <ion-buttons slot="start">
-      <ion-button size="large" (click)="scroll(overview)">{{ movieData.title }}</ion-button>
-      <ion-button size="small" (click)="scroll(cast)">Cast</ion-button>
-      <ion-button size="small" (click)="scroll(crew)">Crew</ion-button>
-    </ion-buttons>
+   <!-- with inner menu --> 
+   <ion-buttons slot="start">
+    <ion-button size="large" (click)="scroll(overview)">{{ movieData?.title }}</ion-button>
+    <ion-button size="small" (click)="scroll(cast)">Cast</ion-button>
+    <ion-button size="small" (click)="scroll(crew)">Crew</ion-button>
+  </ion-buttons>
 
+    <!-- RIGHT: navigation icons -->
     <ion-buttons slot="end">
       <ion-button shape="round" [routerLink]="['/home']">
         <ion-icon slot="icon-only" name="home"></ion-icon>
@@ -16,84 +17,91 @@
         <ion-icon slot="icon-only" name="heart"></ion-icon>
       </ion-button>
     </ion-buttons>
+
   </ion-toolbar>
-  
 </ion-header>
 
-<!--https://stackoverflow.com/questions/43945548/scroll-to-element-on-click-in-angular-4-->
 
-<ion-content [fullscreen]="true"> 
-
-  <ion-item>
-    <div #overview style="height: 8px;"></div>
-  </ion-item>
-    
+<ion-content [fullscreen]="true">
   <ion-card>
-  <!--excluding if backdrop_pat
-  h is n
-  <img *ngIf="movieData.backdrop_path"
-    alt= "{{ movieData.title }}"
-    [src]="imageLink + movieData.backdrop_path" />-->
-  
+  <!-- OVERVIEW anchor for avoiding the hiding effect of the header -->
+  <ion-item lines="none">
+    <div #overview style="padding: 8px 12px;">
+      Rating: {{ movieData?.vote_average }}
+       ·  Votes: {{ movieData?.vote_count }}
+       ·  Release: {{ movieData?.release_date }}
+    </div>
+  </ion-item>
+</ion-card>
+
+  <ion-card>
     <ion-item>
-      <h2>Overview</h2>
+      <h2><br>Overview</h2>
     </ion-item>
+
     <ion-item>
       <div style="padding: 8px 12px;">
-        {{ movieData.overview }}
+        {{ movieData?.overview }}
       </div>
     </ion-item>
   </ion-card>
 
-  <ion-item>
-    <div #cast style="height: 8px;"></div>
-  </ion-item>
 
-  <ion-card>
+  <!-- CAST anchor -->  <ion-card>
+  <ion-item color="light" lines="none">
+    <div #cast style="height: 1px;"></div>
+  </ion-item>
+</ion-card> 
+  
+<ion-card>
+
     <ion-item>
       <h1>Cast</h1>
     </ion-item>
 
-  <!-- clickable elements for selecting with method in ts file -->
-  <ion-item *ngFor="let c of castData"
-  button (click)="castPicker(c)" [routerLink]="['/person-details']">
+    <ion-item *ngFor="let c of castData"
+      button [routerLink]="['/person-details', c.id]">
 
-    <img *ngIf="c.profile_path"
-    [src]="imageLink + c.profile_path"
-    style="width:123px; margin-right:11px;" />
+      <img *ngIf="c.profile_path"
+        [src]="imageLink + c.profile_path"
+        style="width:123px; margin-right:11px;" />
 
-    <ion-label>
-      <h1>{{ c.character }}</h1>
-      <p>{{ c.name }}</p>
-    </ion-label>
+      <ion-label>
+        <h1>{{ c.character }}</h1>
+        <p>{{ c.name }}</p>
+      </ion-label>
 
-  </ion-item>
+    </ion-item>
+
   </ion-card>
 
-  <ion-item>
-    <div #crew></div>
-  </ion-item>
+  <!-- CREW anchor -->  <ion-card>
+    <ion-item color="light" lines="none">
+      <div #crew style="height: 1px;"></div>
+    </ion-item>
+  </ion-card> 
 
   <ion-card>
+    <ion-item>
+      <h1>Crew</h1>
+    </ion-item>
 
-  <ion-item>
-    <h1>Crew</h1>
-  </ion-item>
+    <ion-item
+      *ngFor="let cr of crewData"
+      button [routerLink]="['/person-details', cr.id]">
 
-      <ion-item *ngFor="let cr of crewData"
-      button (click)="crewPicker(cr)" [routerLink]="['/person-details']">
-        
-        <img
-          *ngIf="cr.profile_path"
-          [src]="imageLink + cr.profile_path"
-          style="width:123px; margin-right:11px;" />
-    
-        <ion-label>
-          <h1>{{ cr.job }}</h1>
-          <p>{{ cr.name }}</p>
-        </ion-label>
+      <img
+        *ngIf="cr.profile_path"
+        [src]="imageLink + cr.profile_path"
+        style="width:123px; margin-right:11px;" />
 
-      </ion-item>
+      <ion-label>
+        <h1>{{ cr.job }}</h1>
+        <p>{{ cr.name }}</p>
+      </ion-label>
+
+    </ion-item>
 
   </ion-card>
-  </ion-content>
+
+</ion-content>

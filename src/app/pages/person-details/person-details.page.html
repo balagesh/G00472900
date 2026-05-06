@@ -1,10 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <!-- LEFT: Title = Person name -->
     <ion-buttons slot="start">
-      <ion-button size="large">{{ pData.name }}</ion-button>
-
+      <ion-button size="large">{{ pData?.name }}</ion-button>
     </ion-buttons>
 
+    <!-- RIGHT: navigation icons -->
     <ion-buttons slot="end">
       <ion-button shape="round" [routerLink]="['/home']">
         <ion-icon slot="icon-only" name="home"></ion-icon>
@@ -13,19 +14,15 @@
         <ion-icon slot="icon-only" name="heart"></ion-icon>
       </ion-button>
     </ion-buttons>
-  </ion-toolbar>
-  
+  </ion-toolbar>  
 </ion-header>
 
-<!--https://stackoverflow.com/questions/43945548/scroll-to-element-on-click-in-angular-4-->
-
 <ion-content [fullscreen]="true"> 
+  <ion-card>
 
   <ion-item>
     <div #overview style="height: 8px;"></div>
   </ion-item>
-    
-  <ion-card>
   <!--excluding if backdrop_path is null --> 
   <ion-item>
   <img *ngIf="pData.profile_path"
@@ -46,19 +43,20 @@
     </ion-label>
   </ion-item>
 
-  <ion-item *ngIf="pData.birthday">
-
+  <ion-item *ngIf="pData?.birthday || pData?.deathday || pData?.place_of_birth">
     <ion-label>
-      <h2>{{ pData.birthday }} - {{ pData.deathday }}</h2>
-      <p>{{ pData.place_of_birth }}</p>
+      <h2>{{ pData?.birthday }} - {{ pData?.deathday }}</h2>
+      <p>{{ pData?.place_of_birth }}</p>
       <br>
-      <p>{{ pData.biography }}</p>
+      <p>{{ pData?.biography }}</p>
     </ion-label>
   </ion-item>
+</ion-card>
 
-
+   <!-- Movie list: with ratings + clickable) -->
+<ion-card>
   <ion-item>
-    <h2>Movies</h2>
+    <h1>Movies</h1>
   </ion-item>
 
   <ion-item *ngFor="let pm of pMData"
@@ -71,14 +69,14 @@
        
      <ion-label *ngIf="!pm.poster_path">
        No image</ion-label>
-   
+   <!-- TV shows has name instead of title -->
        <ion-label>
-        {{ pm.title || pm.name }}
+        {{ pm?.title || pm?.name }} ({{ pm?.vote_average }})
+           <!-- character name -->
+        <p *ngIf="pm?.character">{{ pm.character }}</p>
       </ion-label>
   </ion-item>
    
-     
-  </ion-card>
-
+</ion-card>
 
 </ion-content>

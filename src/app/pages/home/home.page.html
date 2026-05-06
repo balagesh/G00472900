@@ -26,8 +26,7 @@
 
   <!-- clickable elements, select movie with method in ts file -->
   <!-- It was a div element, but I merged into the Ionic element later  -->
-<ion-card *ngFor="let m of movieData"
-button (click)="moviePicker(m)" [routerLink]="['/movie-details']">
+<ion-card *ngFor="let m of movieData" [routerLink]="['/movie-details', m.id]">
 
   <ion-card-header>
       <ion-card-title>{{ m.title }}</ion-card-title>

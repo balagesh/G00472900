@@ -16,7 +16,7 @@ export const routes: Routes = [
    source: https://stackoverflow.com/questions/36207023/angular2-how-to-use-router-with-dynamic-urls
   */
   {
-    path: 'movie-details',
+    path: 'movie-details/:id',
     loadComponent: () => import('./pages/movie-details/movie-details.page').then( m => m.MovieDetailsPage)
   },
   {
@@ -24,7 +24,7 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/favourites/favourites.page').then( m => m.FavouritesPage)
   },
   {
-    path: 'person-details',
+    path: 'person-details/:id',
     loadComponent: () => import('./pages/person-details/person-details.page').then( m => m.PersonDetailsPage)
   },
 ];

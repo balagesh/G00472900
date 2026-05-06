@@ -37,7 +37,7 @@ export class HomePage implements OnInit {
   }
 
   async getTrending() {
-    this.options.url =   this.tmdbService.getTmdbUrl() + '/trending/movie/day?api_key=' + this.tmdbService.getApiKey();
+    this.options.url = this.tmdbService.getTmdbUrl() + '/trending/movie/day?api_key=' + this.tmdbService.getApiKey();
     let result = await this.tmdbService.get(this.options);
     //for the developer tools check
     console.log(result);
@@ -46,8 +46,8 @@ export class HomePage implements OnInit {
     this.movieData = result.data.results;
   }
 
-  moviePicker(thatMovie: any) {
+/*   moviePicker(thatMovie: any) {
     this.tmdbService.mPicked = thatMovie;
   } 
-  
+   */
 }

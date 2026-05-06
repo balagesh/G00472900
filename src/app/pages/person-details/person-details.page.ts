@@ -7,6 +7,7 @@ import { addIcons } from 'ionicons';
 import { heart, home } from 'ionicons/icons';
 import { HttpOptions } from '@capacitor/core';
 import { Themoviedb } from 'src/app/services/themoviedb';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-person-details',
@@ -15,7 +16,7 @@ import { Themoviedb } from 'src/app/services/themoviedb';
   imports: [IonLabel, IonCard, IonItem, IonIcon, IonButton, IonButtons, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink]
 })
 export class PersonDetailsPage implements OnInit {
-
+  //Selected personás details and the related movies - initialized in the constructor
   pData: any;
   pMData: any;
   
@@ -26,50 +27,45 @@ export class PersonDetailsPage implements OnInit {
     url: ''
   }
 
-  constructor(private tmdbService: Themoviedb) { 
+  constructor(private tmdbService: Themoviedb, private route: ActivatedRoute) { 
     addIcons({ home });
     addIcons({ heart });
   }
 
   ngOnInit() {
-    if (this.tmdbService.cPicked) {
-      this.pData = this.tmdbService.cPicked;
-    }
-    else {
-    this.pData = this.tmdbService.crPicked;
-    }
-
+    this.pData = [];
     this.pMData = [];
+
+    // magic: Angular routing: params from the current page
+    const id = this.route.snapshot.paramMap.get('id');
+    console.log('person id:', id);
+
+    if (id) {
+      this.getPDetails(id);
+    }
   }
 
   ionViewWillEnter() {  
-    this.getPDetails();
   }
 
+  //Scroll for the internal navigation
   scroll(el: HTMLElement) {
     el.scrollIntoView();
   }
 
-  async getPDetails() {
-
-    let pId = this.pData.id;
+  async getPDetails(pId: string) {
 
     // 1. PERSON DATA
-    this.options.url =   this.tmdbService.getTmdbUrl() + '/person/' + pId + '?api_key=' + this.tmdbService.getApiKey();
-    let result = await this.tmdbService.get(this.options);
-    //for the developer tools check
-    console.log(result);
-    //Extract movie list from result
-    //Response body: object, results: array of objects
-    this.pData = result.data;
+    const personUrl = this.tmdbService.getTmdbUrl() + '/person/' + pId + '?api_key=' + this.tmdbService.getApiKey();
+    const personResult = await this.tmdbService.get({ url: personUrl });
+    this.pData = personResult.data;
 
     // 2. MOVIE DATA
-    this.options.url =   this.tmdbService.getTmdbUrl() + '/person/' + pId + '/movie_credits?api_key=' + this.tmdbService.getApiKey();
-    let pMRresult = await this.tmdbService.get(this.options);
+    const pMUrl = this.tmdbService.getTmdbUrl() + '/person/' + pId + '/movie_credits?api_key=' + this.tmdbService.getApiKey();
+    const pMRresult = await this.tmdbService.get({ url: pMUrl });
 
-    //Extract movie list from result
-    //Response body: object, results: array of objects
-
+    // this.pMData = pMRresult.data;
+    // Merge the cast and crew data
 
     if (pMRresult.data.cast && pMRresult.data.crew) {
       this.pMData = pMRresult.data.cast.concat(pMRresult.data.crew);
@@ -88,8 +84,5 @@ export class PersonDetailsPage implements OnInit {
         console.log(pMRresult.data);
   }
 
-  moviePicker(thatMovie: any) {
-    this.tmdbService.mPicked = thatMovie;
-  } 
 
 }
