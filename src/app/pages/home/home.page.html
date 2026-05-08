@@ -16,10 +16,18 @@
 
 <ion-content [fullscreen]="true">
 
+  <!-- SEARCH BAR -->
+  <ion-card>
+    <ion-searchbar [value]="searched" [debounce]="1000" (ionInput)="handleInput($event)"></ion-searchbar>
+  <ion-button expand="block" color="primary" (click)="searchMovies()">
+    SEARCH
+  </ion-button>
+</ion-card>
+
   <ion-card>
     <ion-card-header>
       <ion-card-title><h2>
-        Today’s Trending Movies
+        {{ pageTitle }}
       </h2></ion-card-title>
   </ion-card-header>
 </ion-card>
