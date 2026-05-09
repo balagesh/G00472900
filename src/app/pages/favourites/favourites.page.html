@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
 
-    <ion-title color="success">Favourite Movies</ion-title>
+    <ion-title color="success">FAVOURITE MOVIES</ion-title>
     <ion-buttons slot="end">
       <ion-button shape="round" [routerLink]="['/home']">
         <ion-icon slot="icon-only" color="success" name="home"></ion-icon>
@@ -37,7 +37,7 @@
   alt= "{{ m.title }}" [src]="imageLink + m.backdrop_path"
   style="width:319px; margin-right:11px;" />
 
-  <div *ngIf="!m.backdrop_path" style="width:123px; height:123px; margin-right:11px; display:flex; align-items:center; justify-content:center;">
+  <div *ngIf="!m.backdrop_path" style="width:319px; height:173px; margin-right:11px; display:flex; align-items:center; justify-content:center;">
     No image
   </div>
 

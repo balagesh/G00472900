@@ -36,7 +36,7 @@
 
   <ion-item>
     <ion-label *ngIf="pData.also_known_as">
-      {{ pData.also_known_as.join(', ') }}
+      {{ pData.also_known_as.join(', ') || '-' }}
     </ion-label>  
     <ion-label *ngIf="!pData.also_known_as">
       -
@@ -60,7 +60,7 @@
   </ion-item>
 
   <ion-item *ngFor="let pm of pMData"
-  button [routerLink]="['/movie-details', pm.id]">
+  button [routerLink]="['/movie-details', pm?.id]">
 
      <img *ngIf="pm.poster_path"       
        [src]="imageLink + pm.poster_path"
@@ -70,7 +70,7 @@
         No image
       </div>
 
-   <!-- TV shows has name instead of title -->
+   <!-- TV shows has name instead of title however... I didn't build them in the app. -->
        <ion-label>
         {{ pm?.title || pm?.name }} 
       <p>({{ (pm?.release_date || pm?.first_air_date)?.slice(0, 4) || '—' }} • {{ pm?.vote_average | number:'1.0-1' }})</p>

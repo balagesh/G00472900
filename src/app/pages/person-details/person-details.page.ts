@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton, IonIcon, IonItem, IonCard, IonLabel } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, IonItem, IonCard, IonLabel } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { heart, home } from 'ionicons/icons';
@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
   imports: [IonLabel, IonCard, IonItem, IonIcon, IonButton, IonButtons, IonContent, IonHeader, IonToolbar, CommonModule, FormsModule, RouterLink]
 })
 export class PersonDetailsPage implements OnInit {
-  //Selected personás details and the related movies - initialized in the constructor
+  //Selected profiles and the related movies - initialized in the constructor
   pData: any;
   pMData: any;
   
@@ -33,13 +33,14 @@ export class PersonDetailsPage implements OnInit {
   }
 
   ngOnInit() {
+    // initialized arrays
     this.pData = [];
     this.pMData = [];
 
     // magic: Angular routing: params from the current page
     const id = this.route.snapshot.paramMap.get('id');
     console.log('person id:', id);
-
+    // check if the route parameter exits, safety
     if (id) {
       this.getPDetails(id);
     }
@@ -64,8 +65,8 @@ export class PersonDetailsPage implements OnInit {
     const pMUrl = this.tmdbService.getTmdbUrl() + '/person/' + pId + '/movie_credits?api_key=' + this.tmdbService.getApiKey();
     const pMRresult = await this.tmdbService.get({ url: pMUrl });
 
-    // this.pMData = pMRresult.data;
-    // Merge the cast and crew data
+    // full object: this.pMData = pMRresult.data;
+    // Merge the cast and crew data:
 
     if (pMRresult.data.cast && pMRresult.data.crew) {
       this.pMData = pMRresult.data.cast.concat(pMRresult.data.crew);
@@ -83,6 +84,4 @@ export class PersonDetailsPage implements OnInit {
     //for the developer tools check
         console.log(pMRresult.data);
   }
-
-
 }

@@ -11,11 +11,9 @@ export class MyData {
   }
   
   async init() {
-    const storage = await this.storage.create();
-    //I left this based on the github exemple
-    this.storage = this.storage;
+    await this.storage.create();
   }
-
+  //Save and retrieve value
   async set(key: string, value: any) {
     await this.storage?.set(key, value);
   }

@@ -10,16 +10,12 @@ export class Themoviedb {
   constructor() {}
 
   /*Update 2: readonly
-  You can initialize them at the point of declaration or in the constructor.
+  'You can initialize them at the point of declaration or in the constructor.'
   https://stackoverflow.com/questions/28513780/final-keyword-in-typescript
   */
 
   private readonly apiKey = '9bb4565b7e9cf15a771e7e9917060b22';
   private readonly tmdbUrl = 'https://api.themoviedb.org/3';
-
-  mPicked: any;
-  cPicked: any;
-  crPicked: any;
 
   getApiKey(): string {
     return this.apiKey;

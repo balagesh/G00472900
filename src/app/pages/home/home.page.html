@@ -42,6 +42,10 @@
   alt= "{{ m.title }}" [src]="imageLink + m.backdrop_path"
   style="width:319px; margin-right:11px;" />
 
+  <div *ngIf="!m.backdrop_path" style="width:319px; height:173px; margin-right:11px; display:flex; align-items:center; justify-content:center;">
+    No image
+  </div>
+
   <ion-label>
     <h1>{{ m?.title }}</h1>
       <p>({{ m?.release_date?.slice(0, 4) || '—' }} • {{ m?.vote_average | number:'1.0-1' }})</p>
