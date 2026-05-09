@@ -47,9 +47,14 @@
   </ion-card>
 
 
-  <!-- CAST anchor -->  <ion-card>
+  <!-- CAST anchor --> 
+<ion-card>
   <ion-item color="light" lines="none">
     <div #cast style="height: 1px;"></div>
+    <ion-button fill="solid" [color]="isFav ? 'primary' : 'success'" (click)="clockFavourites()">
+      <ion-icon name="heart" slot="start"></ion-icon>
+        {{ isFav ? "REMOVE FROM FAVOURITES" : "ADD TO FAVOURITES" }}
+    </ion-button>
   </ion-item>
 </ion-card> 
   

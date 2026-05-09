@@ -14,6 +14,7 @@ import { HttpOptions } from '@capacitor/core';
   standalone: true,
   imports: [IonSearchbar, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonImg, IonLabel, IonList, IonItem, IonIcon, IonButtons, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink, IonThumbnail]
 })
+
 export class HomePage implements OnInit {
 
   movieData: any;
@@ -65,7 +66,6 @@ export class HomePage implements OnInit {
   handleInput(event: Event) {
     const target = event.target as HTMLIonSearchbarElement;
     this.searched = target.value?.toLowerCase() || '';
-
 
 /*  
   handleInput(event: Event) {
