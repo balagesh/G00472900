@@ -3,18 +3,18 @@
 
    <!-- with inner menu --> 
    <ion-buttons slot="start">
-    <ion-button size="large" (click)="scroll(overview)">{{ movieData?.title }}</ion-button>
-    <ion-button size="small" (click)="scroll(cast)">Cast</ion-button>
-    <ion-button size="small" (click)="scroll(crew)">Crew</ion-button>
+    <ion-button size="large" color="primary" (click)="scroll(overview)">{{ movieData?.title }}</ion-button>
+    <ion-button size="small" color="primary" (click)="scroll(cast)">Cast</ion-button>
+    <ion-button size="small" color="primary" (click)="scroll(crew)">Crew</ion-button>
   </ion-buttons>
 
-    <!-- RIGHT: navigation icons -->
+    <!-- To the right: navigation icons -->
     <ion-buttons slot="end">
       <ion-button shape="round" [routerLink]="['/home']">
-        <ion-icon slot="icon-only" name="home"></ion-icon>
+        <ion-icon slot="icon-only" color="success" name="home"></ion-icon>
       </ion-button>
       <ion-button shape="round" [routerLink]="['/favourites']">
-        <ion-icon slot="icon-only" name="heart"></ion-icon>
+        <ion-icon slot="icon-only" color="danger" name="heart"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -27,9 +27,10 @@
   <!-- OVERVIEW anchor for avoiding the hiding effect of the header -->
   <ion-item lines="none">
     <div #overview style="padding: 8px 12px;">
-      Rating: {{ movieData?.vote_average }}
+      Release Date: {{ movieData?.release_date || '—'  }}
+       ·  Rating: {{ movieData?.vote_average | number:'1.0-1' }}
        ·  Votes: {{ movieData?.vote_count }}
-       ·  Release: {{ movieData?.release_date }}
+       ·  Popularity: {{ movieData?.popularity | number:'1.0-2' }}
     </div>
   </ion-item>
 </ion-card>
@@ -72,6 +73,7 @@
         style="width:123px; margin-right:11px;" />
 
       <ion-label>
+
         <h1>{{ c.character }}</h1>
         <p>{{ c.name }}</p>
       </ion-label>

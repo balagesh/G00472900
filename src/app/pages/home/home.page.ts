@@ -12,7 +12,7 @@ import { HttpOptions } from '@capacitor/core';
   selector: 'app-home',
   templateUrl: './home.page.html',
   standalone: true,
-  imports: [IonSearchbar, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonImg, IonLabel, IonList, IonItem, IonIcon, IonButtons, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink, IonThumbnail]
+  imports: [IonSearchbar, IonCard, IonIcon, IonButtons, IonButton, IonContent, IonHeader, IonToolbar, CommonModule, FormsModule, RouterLink, IonItem, IonLabel]
 })
 
 export class HomePage implements OnInit {
@@ -39,7 +39,12 @@ export class HomePage implements OnInit {
     this.getTrending();
   }
 
-  /// If search input is empty, return to home state instead of calling API/ Reset data and reload page, when coming back, it doesn't hold previous search
+  // Scrolls to selected section on the page
+  scroll(el: HTMLElement) {
+    el.scrollIntoView();
+  }
+
+  /// Reset and reload page, when user is back, it doesn't hold previous search
   ionViewWillLeave() {
     this.pageTitle = "Today’s Trending Movies";
     this.searched = '';
@@ -53,7 +58,6 @@ export class HomePage implements OnInit {
     //for the developer tools check
     console.log(result);
     //Extract movie list from result
-    //Response body: object, results: array of objects
     this.movieData = result.data.results;
   }
 
@@ -62,7 +66,8 @@ export class HomePage implements OnInit {
     this.pageTitle = "Today’s Trending Movies";
     this.getTrending();
   }
-
+  
+  //Searchbar input
   handleInput(event: Event) {
     const target = event.target as HTMLIonSearchbarElement;
     this.searched = target.value?.toLowerCase() || '';

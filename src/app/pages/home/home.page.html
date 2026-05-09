@@ -1,13 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title></ion-title>
+     <!-- My ID: serve as a button to jump back as high as possible -->
     <ion-buttons slot="start">
-      <ion-button size="large">G00472900</ion-button>
+      <ion-button color="primary" size="large" (click)="scroll(search)">G00472900</ion-button>
     </ion-buttons>
-
     <ion-buttons slot="end">
       <ion-button shape="round" [routerLink]="['/favourites']">
-        <ion-icon slot="icon-only" name="heart"></ion-icon>
+        <ion-icon slot="icon-only" color="danger" name="heart"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -18,37 +17,39 @@
 
   <!-- SEARCH BAR -->
   <ion-card>
+
+    <div #search></div>
     <ion-searchbar placeholder="Looking for a Movie?" [value]="searched" [debounce]="1000" (ionInput)="handleInput($event)"></ion-searchbar>
-  <ion-button expand="block" color="primary" (click)="searchMovies()">
-    SEARCH
+    <ion-button expand="block" color="primary" (click)="searchMovies()">
+    Let's Find That Movie!
   </ion-button>
+
 </ion-card>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title><h2>
-        {{ pageTitle }}
-      </h2></ion-card-title>
-  </ion-card-header>
-</ion-card>
+<ion-card>
+
+  <ion-item>
+    <h1> {{ pageTitle }}</h1>
+  </ion-item>
 
   <!-- clickable elements, select movie with method in ts file -->
   <!-- It was a div element, but I merged into the Ionic element later  -->
-<ion-card *ngFor="let m of movieData" [routerLink]="['/movie-details', m.id]">
+<ion-item *ngFor="let m of movieData" [routerLink]="['/movie-details', m.id]">
 
-  <ion-card-header>
-      <ion-card-title>{{ m.title }}</ion-card-title>
-  </ion-card-header>
-
-  <ion-card-content>
   <!--excluding if backdrop_path is n-->
   <img 
   *ngIf="m.backdrop_path"
-  alt= "{{ m.title }}" [src]="imageLink + m.backdrop_path" />
+  alt= "{{ m.title }}" [src]="imageLink + m.backdrop_path"
+  style="width:319px; margin-right:11px;" />
+
+  <ion-label>
+    <h1>{{ m?.title }}</h1>
+      <p>({{ m?.release_date?.slice(0, 4) || '—' }} • {{ m?.vote_average | number:'1.0-1' }})</p>
+
   <br>
   
     {{ m.overview }}
-  </ion-card-content>
-
+  </ion-label>
+  </ion-item>
 </ion-card>
 </ion-content>

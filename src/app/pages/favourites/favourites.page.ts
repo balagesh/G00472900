@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonIcon, IonItem, IonList, IonLabel, IonThumbnail, IonImg, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonSearchbar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { home } from 'ionicons/icons';
+import { home, star } from 'ionicons/icons';
 import { RouterLink } from '@angular/router';
 import { Themoviedb } from 'src/app/services/themoviedb';
 import { HttpOptions } from '@capacitor/core';
@@ -13,7 +13,7 @@ import { MyData } from 'src/app/services/my-data';
   selector: 'app-favourites',
   templateUrl: './favourites.page.html',
   standalone: true,
-  imports: [IonSearchbar, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonImg, IonLabel, IonList, IonItem, IonIcon, IonButtons, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink, IonThumbnail]
+  imports: [IonSearchbar, IonCard, IonLabel, IonItem, IonIcon, IonButtons, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink]
 })
 
 export class FavouritesPage implements OnInit {
@@ -29,18 +29,19 @@ export class FavouritesPage implements OnInit {
   }
 
   constructor(private tmdbService: Themoviedb, private mds: MyData)  {
-    addIcons({ home });
+    addIcons({home,star});
    }
 
   ngOnInit() {
     this.movieData = [];
   }
 
+  // Immediately loads favourite movies
   ionViewWillEnter() {
     this.getFavs();
   }
 
-  /// If search input is empty, return to home state instead of calling API/ Reset data and reload page, when coming back, it doesn't hold previous search
+  // Reset page, when leaving it 
   ionViewWillLeave() {
     this.pageTitle = "Favourite Movies";
     this.searched = '';
@@ -65,6 +66,7 @@ export class FavouritesPage implements OnInit {
     this.getFavs();
   }
 
+  //Searchbar input handler
   handleInput(event: Event) {
     const target = event.target as HTMLIonSearchbarElement;
     this.searched = target.value?.toLowerCase() || '';

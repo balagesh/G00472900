@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-person-details',
   templateUrl: './person-details.page.html',
   standalone: true,
-  imports: [IonLabel, IonCard, IonItem, IonIcon, IonButton, IonButtons, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink]
+  imports: [IonLabel, IonCard, IonItem, IonIcon, IonButton, IonButtons, IonContent, IonHeader, IonToolbar, CommonModule, FormsModule, RouterLink]
 })
 export class PersonDetailsPage implements OnInit {
   //Selected personás details and the related movies - initialized in the constructor

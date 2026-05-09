@@ -2,16 +2,16 @@
   <ion-toolbar>
     <!-- LEFT: Title = Person name -->
     <ion-buttons slot="start">
-      <ion-button size="large">{{ pData?.name }}</ion-button>
+      <ion-button color="primary" size="large" (click)="scroll(overview)">{{ pData?.name }}</ion-button>
     </ion-buttons>
 
     <!-- RIGHT: navigation icons -->
     <ion-buttons slot="end">
       <ion-button shape="round" [routerLink]="['/home']">
-        <ion-icon slot="icon-only" name="home"></ion-icon>
+        <ion-icon slot="icon-only" color="success" name="home"></ion-icon>
       </ion-button>
       <ion-button shape="round" [routerLink]="['/favourites']">
-        <ion-icon slot="icon-only" name="heart"></ion-icon>
+        <ion-icon slot="icon-only" color="danger" name="heart"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>  
@@ -62,16 +62,18 @@
   <ion-item *ngFor="let pm of pMData"
   button [routerLink]="['/movie-details', pm.id]">
 
-     <img *ngIf="pm.poster_path"
-       
+     <img *ngIf="pm.poster_path"       
        [src]="imageLink + pm.poster_path"
        style="width:123px; margin-right:11px;" />
        
-     <ion-label *ngIf="!pm.poster_path">
-       No image</ion-label>
+     <div *ngIf="!pm.poster_path" style="width:123px; height:123px; margin-right:11px; display:flex; align-items:center; justify-content:center;">
+        No image
+      </div>
+
    <!-- TV shows has name instead of title -->
        <ion-label>
-        {{ pm?.title || pm?.name }} ({{ pm?.vote_average }})
+        {{ pm?.title || pm?.name }} 
+      <p>({{ (pm?.release_date || pm?.first_air_date)?.slice(0, 4) || '—' }} • {{ pm?.vote_average | number:'1.0-1' }})</p>
            <!-- character name -->
         <p *ngIf="pm?.character">{{ pm.character }}</p>
       </ion-label>

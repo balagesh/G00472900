@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonButton, IonButtons, IonCardHeader, IonCardContent, IonCardTitle, IonCard, IonLabel, IonItem, IonSegmentButton, IonSegment } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonToolbar, IonIcon, IonButton, IonButtons, IonCard, IonLabel, IonItem } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { heart, home, information } from 'ionicons/icons';
@@ -14,7 +14,7 @@ import { MyData } from 'src/app/services/my-data';
   selector: 'app-movie-details',
   templateUrl: './movie-details.page.html',
   standalone: true,
-  imports: [IonSegment, IonSegmentButton, IonItem, IonLabel, IonCard, IonCardTitle, IonCardContent, IonCardHeader, IonButtons, IonButton, IonIcon, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink, IonContent]
+  imports: [IonItem, IonLabel, IonCard, IonButtons, IonButton, IonIcon, IonHeader, IonToolbar, CommonModule, FormsModule, RouterLink, IonContent]
 })
 export class MovieDetailsPage implements OnInit {
 
@@ -87,15 +87,18 @@ export class MovieDetailsPage implements OnInit {
     }
   }
 
-// It pushes the movie into the favourites array
+// Add or remove the movie: favourites array
 
   async clockFavourites() {
     let favs = await this.mds.get('favourites') || [];
 
+    // If movie is already favourite then it can be removed
     if (this.isFav) {
 
       let freshFavs: any[] = [];
 
+    // Going through the favourites to find the current movie in the list
+    // And addig everything to the fresh list, it is more readding than deleting
       for (let m of favs) {
         if (m.id !== this.movieData.id) {
           freshFavs.push(m);

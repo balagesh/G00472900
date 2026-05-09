@@ -1,50 +1,56 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Favourite Movies</ion-title>
+
+    <ion-title color="success">Favourite Movies</ion-title>
     <ion-buttons slot="end">
       <ion-button shape="round" [routerLink]="['/home']">
-        <ion-icon slot="icon-only" name="home"></ion-icon>
+        <ion-icon slot="icon-only" color="success" name="home"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
   <!-- SEARCH BAR -->
   <ion-card>
+
+
     <ion-searchbar placeholder="Looking for a Movie?" [value]="searched" [debounce]="1000" (ionInput)="handleInput($event)"></ion-searchbar>
-  <ion-button expand="block" color="primary" (click)="searchMovies()">
-    SEARCH
+    <ion-button expand="block" color="primary" (click)="searchMovies()">
+    Let's Find That Movie!
   </ion-button>
+
 </ion-card>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title><h2>
-        {{ pageTitle }}
-      </h2></ion-card-title>
-  </ion-card-header>
-</ion-card>
 
-  <!-- clickable elements, select movie with method in ts file -->
-  <!-- It was a div element, but I merged into the Ionic element later  -->
+<!-- Favourite movie list  -->
 <ion-card>
-  <ion-card-content>
-    <ion-item *ngFor="let m of movieData">
-  <img 
-  *ngIf="m.backdrop_path"
+
+  <ion-item>
+    <h1> {{ pageTitle }}</h1>
+  </ion-item>
+
+  <ion-item *ngFor="let m of movieData">
+  <img *ngIf="m.backdrop_path"
   alt= "{{ m.title }}" [src]="imageLink + m.backdrop_path"
-  style="width:234px; margin-right:11px;" />
+  style="width:319px; margin-right:11px;" />
+
+  <div *ngIf="!m.backdrop_path" style="width:123px; height:123px; margin-right:11px; display:flex; align-items:center; justify-content:center;">
+    No image
+  </div>
 
   <ion-label>
-  <h1>{{ m.title }}</h1>
-<br>
+  <h1>{{ m?.title }}</h1>
+
+  <p>({{ m?.release_date?.substring(0, 4) || '—' }} • {{ m?.vote_average | number:'1.0-1' }})</p>
+
     <ion-button [routerLink]="['/movie-details', m.id]">
       Details
-    </ion-button></ion-label>
+    </ion-button>
+  </ion-label>
   </ion-item>
-  </ion-card-content>
 
 </ion-card>
 </ion-content>
